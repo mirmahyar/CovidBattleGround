@@ -16,6 +16,7 @@ const app = Vue.createApp({
       currentPlayer: 0,
       playerHealth: 100,
       monsterHealth: 100,
+      round: 0,
     };
   },
 
@@ -46,6 +47,7 @@ const app = Vue.createApp({
     },
 
     AttackOnMonster() {
+      this.round++;
       this.monsterHealth = this.monsterHealth - generateRandom(0, 10);
       this.AttackOnPlayer();
     },
@@ -57,7 +59,9 @@ const app = Vue.createApp({
 
     TurboAttack() {
       //More powerful attack on the monster ! Not always available though!
+      this.round++;
       this.monsterHealth = this.monsterHealth - generateRandom(10, 20);
+      this.AttackOnPlayer();
     },
   },
 });

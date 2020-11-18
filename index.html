@@ -44,8 +44,8 @@
       
         <div class="wrapper_buttons">
           <section id="controls">
-            <button @click="playSound(); AttackOnMonster()" >ATTACK</button>
-            <button @click="TurboAttack(); playSound()">Turbo Attack</button>
+            <button  @click="playSound(); AttackOnMonster()" >ATTACK</button>
+            <button :disabled="(round % 3)!==0" @click="TurboAttack(); playSound()">Turbo Attack</button>
             <button>RESIGN</button>
           </section>
         </div>
