@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Monster BattleGround</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Modak&family=Orbitron:wght@800&display=swap');
+      </style>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Monster BattleGround</h1>
+    </header>
+    <div id="game">
+
+      <h1>{{monsterHealth}}</h1>
+
+      <div class="wrapper">
+        <section id="monster" class="container">
+          <h2>Monster Health</h2>
+          <div class="healthbar">
+            <div class="healthbar__value" :style="{width: monsterHealth + '%'}"></div>
+           
+          </div>
+          <div class="ImgButtonContainer">
+            <img
+              class="monsterImg"
+              :src="monsterImages[currentMonster]"
+              @click="changeMonsterIcon()"
+            />
+            <button class="changeMonsterButton" @click="changeMonsterIcon()">
+              Change Monster
+            </button>
+          </div>
+        </section>
+      
+        <div class="wrapper_buttons">
+          <section id="controls">
+            <button @click="playSound(); AttackOnMonster()" >ATTACK</button>
+            
+            <button>RESIGN</button>
+          </section>
+        </div>
+
+
+        <h1>{{playerHealth}}</h1>
+        <section id="player" class="container">
+          <h2>Your Health</h2>
+          <div class="healthbar">
+            <div class="healthbar__value" :style="{width:playerHealth + '%'}"></div>
+          </div>
+          <div class="ImgButtonContainer">
+          <img class="monsterImg" :src="playerImages[currentPlayer]" @click="changePlayerIcon()" />
+          <button class="changePlayerButton" @click="changePlayerIcon()">
+            Change Player
+            </button>
+          </div>
+        </section>
+      </div>
+    </div>
+ 
+      <section id="log" class="log">
+        <h2>Battle Timeline</h2>
+        <ul>
+          <li>your score:</li>
+        </ul>
+      </section>
+    </div>
+  </body>
+</html>
