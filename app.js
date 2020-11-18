@@ -1,5 +1,5 @@
-const generateRandom = (max) => {
-  return Math.floor(Math.random() * max);
+const generateRandom = (min, max) => {
+  return Math.floor(Math.random() * (max - min)) + min;
 };
 
 const app = Vue.createApp({
@@ -46,13 +46,18 @@ const app = Vue.createApp({
     },
 
     AttackOnMonster() {
-      this.monsterHealth = this.monsterHealth - generateRandom(10);
+      this.monsterHealth = this.monsterHealth - generateRandom(0, 10);
       this.AttackOnPlayer();
     },
 
     AttackOnPlayer() {
       //Remember, Monster hits harder than player !
-      this.playerHealth = this.playerHealth - generateRandom(12);
+      this.playerHealth = this.playerHealth - generateRandom(4, 14);
+    },
+
+    TurboAttack() {
+      //More powerful attack on the monster ! Not always available though!
+      this.monsterHealth = this.monsterHealth - generateRandom(10, 20);
     },
   },
 });
