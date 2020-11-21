@@ -17,6 +17,7 @@ const app = Vue.createApp({
       playerHealth: 100,
       monsterHealth: 100,
       round: 0,
+      SoundOn: true,
     };
   },
 
@@ -37,12 +38,14 @@ const app = Vue.createApp({
     },
 
     playSound() {
-      if (this.currentMonster == 1) {
-        var snd = new Audio("./SoundEffects/roar.mp3");
-        snd.play();
-      } else if (this.currentMonster == 0) {
-        var virusSound = new Audio("./SoundEffects/haha.mp3");
-        virusSound.play();
+      if (this.SoundOn) {
+        if (this.currentMonster == 1) {
+          var snd = new Audio("./SoundEffects/roar.mp3");
+          snd.play();
+        } else if (this.currentMonster == 0) {
+          var virusSound = new Audio("./SoundEffects/haha.mp3");
+          virusSound.play();
+        }
       }
     },
 
@@ -61,6 +64,19 @@ const app = Vue.createApp({
       //More powerful attack on the monster ! Not always available though!
       this.round++;
       this.monsterHealth = this.monsterHealth - generateRandom(10, 20);
+      this.AttackOnPlayer();
+    },
+    heal() {
+      //It is a magical first aid button that can improve player's health!
+      //OF course, even with using this button, the monster will then attack the player!
+      //And it counts as one round also.
+      this.round++;
+      const healValue = generateRandom(10, 20);
+      if (this.playerHealth + healValue >= 100) {
+        this.playerHealth = 100;
+      } else {
+        this.playerHealth += healValue;
+      }
       this.AttackOnPlayer();
     },
   },

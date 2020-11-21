@@ -21,7 +21,7 @@
     </header>
     <div id="game">
 
-      <h1>{{monsterHealth}}</h1>
+      
 
       <div class="wrapper">
         <section id="monster" class="container">
@@ -44,14 +44,21 @@
       
         <div class="wrapper_buttons">
           <section id="controls">
+            <h3 class="onOffText">Sound on/off </h3>
+            <label class="switch">
+              
+              <input type="checkbox" v-model="SoundOn">
+              <span class="slider round"></span>
+            </label>
             <button  @click="playSound(); AttackOnMonster()" >ATTACK</button>
             <button :disabled="(round % 3)!==0" @click="TurboAttack(); playSound()">Turbo Attack</button>
+            <button  @click="playSound();heal()" >Magical First Aid</button>
             <button>RESIGN</button>
           </section>
         </div>
 
 
-        <h1>{{playerHealth}}</h1>
+        
         <section id="player" class="container">
           <h2>Your Health</h2>
           <div class="healthbar">
