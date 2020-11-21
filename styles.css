@@ -55,7 +55,16 @@ section {
   margin: 1rem auto;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   border-radius: 12px;
-  height: 60vh;
+  height: auto;
+}
+
+.container-result {
+  text-align: center;
+  padding: 0;
+  margin: 1rem auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border-radius: 12px;
+  height: auto;
 }
 
 .log {
@@ -209,4 +218,9 @@ input:checked + .slider:before {
 
 .onOffText {
   margin-right: 5px;
+}
+
+.container.resign {
+  background-color: #7700ff;
+  color: white;
 }

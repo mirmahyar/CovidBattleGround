@@ -5,11 +5,10 @@ const generateRandom = (min, max) => {
 const app = Vue.createApp({
   data() {
     return {
-      monsterImages: ["./images/virus.jpg", "./images/monster.png"],
+      monsterImages: ["./images/virus.jpg", "./images/covidMonster.jpg"],
       playerImages: [
-        "./images/player.png",
-        "./images/player2.jpg",
         "./images/player3.jpg",
+        "./images/player2.jpg",
         "./images/doctor.png",
       ],
       currentMonster: 0,
@@ -18,10 +17,46 @@ const app = Vue.createApp({
       monsterHealth: 100,
       round: 0,
       SoundOn: true,
+      BackgroundSoundOn: false,
+      winner: null,
+      AttackActive: false,
+      TurboActive: false,
+      HealActive: false,
+      resign: false,
     };
   },
 
+  computed: {
+    monsterLifeBar() {
+      if (this.monsterHealth < 0) {
+        return { width: "0%" };
+      }
+      return { width: this.monsterHealth + "%" };
+    },
+    playerLifeBar() {
+      if (this.playerHealth < 0) {
+        return { width: "0%" };
+      }
+      return { width: this.playerHealth + "%" };
+    },
+  },
+
+  watch: {
+    playerHealth(value) {
+      if (value <= 0) {
+        this.winner = "Monster";
+      }
+    },
+    monsterHealth(value) {
+      if (value <= 0) {
+        this.winner = "Player";
+      }
+    },
+  },
   methods: {
+    mounted() {
+      alert("CheckSound");
+    },
     changeMonsterIcon() {
       if (this.currentMonster < this.monsterImages.length - 1) {
         this.currentMonster++;
@@ -48,6 +83,13 @@ const app = Vue.createApp({
         }
       }
     },
+    playBackgroundSound() {
+      console.log(this.BackgroundSoundOn);
+      if (this.BackgroundSoundOn) {
+        var backgroundMusic = new Audio("./SoundEffects/background.mp3");
+        backgroundMusic.play();
+      }
+    },
 
     AttackOnMonster() {
       this.round++;
@@ -63,7 +105,7 @@ const app = Vue.createApp({
     TurboAttack() {
       //More powerful attack on the monster ! Not always available though!
       this.round++;
-      this.monsterHealth = this.monsterHealth - generateRandom(10, 20);
+      this.monsterHealth = this.monsterHealth - generateRandom(15, 20);
       this.AttackOnPlayer();
     },
     heal() {
