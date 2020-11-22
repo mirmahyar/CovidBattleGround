@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="styles.css" />
     <script src="https://unpkg.com/vue@next" ></script>
     <script src="app.js" defer ></script>
+    
   </head>
   <body>
     <header>
@@ -54,13 +55,13 @@
 
             
 
-            <button  @mouseover='AttackActive=true' @mouseleave='AttackActive=false' :disabled="resign" @click="playSound(); AttackOnMonster()" >ATTACK</button>
-            <div v-if="AttackActive">Attack ! But Covid will attack back!</div>
-            <button @mouseover='TurboActive=true' @mouseleave='TurboActive=false':disabled="(round % 3)!==0 ||resign" @click="TurboAttack(); playSound()">Turbo Attack</button>
-            <div v-if="TurboActive">Super Attack ! But use wisely !</div>
-            <button  @mouseover='HealActive=true' @mouseleave='HealActive=false' :disabled="playerHealth===100||resign" @click="playSound();heal()" >Magical First Aid</button>
-            <div v-if="HealActive">Heal Yourself! But Covid will also attack! </div>
-            <button @click="resign=true">RESIGN</button>
+            <button  @mouseover='AttackActive=true' @mouseleave='AttackActive=false' :disabled="resign || winner" @click="playSound(); AttackOnMonster()" >ATTACK</button>
+            <div style="text-align: center;" v-if="AttackActive">Attack ! But Covid will attack back!</div>
+            <button @mouseover='TurboActive=true' @mouseleave='TurboActive=false':disabled="(round % 3)!==0 ||resign||winner" @click="TurboAttack(); playSound()">Turbo Attack</button>
+            <div style="text-align: center;" v-if="TurboActive">Super Attack ! But use wisely !</div>
+            <button  @mouseover='HealActive=true' @mouseleave='HealActive=false' :disabled="playerHealth===100||resign||winner" @click="playSound();heal()" >Magical First Aid</button>
+            <div style="text-align: center;" v-if="HealActive">Heal Yourself! But Covid will also attack! </div>
+            <button :disabled="winner" @click="resign=true">RESIGN</button>
             
             
           </section>
@@ -83,10 +84,11 @@
 
         
       </div>
-      <section class="container-result" v-if="winner">
+      
+      <section class="container-result" v-if="winner" >
         
-        <h2 v-if="winner===Player">You won!</h2>
-        <h2 v-else>You lost!</h2>
+        <h2 class="container resign" v-if="winner==='Player'">You won!</h2>
+        <h2 class="container resign" v-else-if="winner==='Monster'">You lost!</h2>
       </section>
 
       <div v-if="resign" class="container resign">You Resigned... : (</div>

@@ -54,9 +54,6 @@ const app = Vue.createApp({
     },
   },
   methods: {
-    mounted() {
-      alert("CheckSound");
-    },
     changeMonsterIcon() {
       if (this.currentMonster < this.monsterImages.length - 1) {
         this.currentMonster++;
@@ -99,19 +96,20 @@ const app = Vue.createApp({
 
     AttackOnPlayer() {
       //Remember, Monster hits harder than player !
-      this.playerHealth = this.playerHealth - generateRandom(4, 14);
+      this.playerHealth = this.playerHealth - generateRandom(2, 12);
     },
 
     TurboAttack() {
       //More powerful attack on the monster ! Not always available though!
       this.round++;
-      this.monsterHealth = this.monsterHealth - generateRandom(15, 20);
+      this.monsterHealth = this.monsterHealth - generateRandom(20, 30);
       this.AttackOnPlayer();
     },
     heal() {
       //It is a magical first aid button that can improve player's health!
       //OF course, even with using this button, the monster will then attack the player!
       //And it counts as one round also.
+
       this.round++;
       const healValue = generateRandom(10, 20);
       if (this.playerHealth + healValue >= 100) {
